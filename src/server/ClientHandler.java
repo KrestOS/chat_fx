@@ -52,8 +52,16 @@ public class ClientHandler {
                             out.writeUTF("/end");
                             break;
                         }
+                        if (str.startsWith("/w")){
+                            String[] part = str.split(" ", 3);
+                            String whoSendNick = part[1];
+                            String message = part[2];
+                            server.toNickMsg(this, whoSendNick,message);
+                        }else{
+                            server.broadcastMsg(this, str);
+                        }
 
-                        server.broadcastMsg(this, str);
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
